@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Example with Local Storage</title>
+</head>
+<body>
+    <h1>Cookie Example with Local Storage</h1>
+
+    <button onclick="setCookie()">Set Cookie</button>
+    <button onclick="showCookies()">Show Cookies</button>
+
+    <ul id="cookies-list"></ul>
+
+    <script>
+        function setCookie() {
+            localStorage.setItem("username", "John Doe");
+            localStorage.setItem("language", "English");
+        }
+
+        function showCookies() {
+            const cookiesList = document.getElementById('cookies-list');
+            cookiesList.innerHTML = '';
+
+            Object.keys(localStorage).forEach(key => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${key}: ${localStorage.getItem(key)}`;
+                cookiesList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
