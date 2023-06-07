@@ -68,4 +68,4 @@ class Services {
         return data;
     }
 }
-let service = Services();
+let service = new Services();
