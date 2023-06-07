@@ -79,7 +79,3 @@ class LocalDataManager{
 }
 
 let dm = new LocalDataManager();
-function saveVal(){
-   // dm.setPrefix("Fouad");
-   // dm.setIgnorPrefix(true);
-}
