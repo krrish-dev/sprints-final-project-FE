@@ -37,7 +37,5 @@ class userLogin{
     
 }
 let _userLogin=new userLogin()
-myfunc= async()=>{
-    console.log(returnedData)
-}
+
 
