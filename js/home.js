@@ -85,6 +85,158 @@ class CategoryRenderer {
     this.renderBoxCategories(sortedCategories);
   }
 }
+// feature product + recent product 
+class Product {
+  constructor(id, name, image, categoryId, price, discount, rating, ratingCount, isFeatured, isRecent, color, size, description) {
+    this.id = id;
+    this.name = name;
+    this.image = image;
+    this.categoryId = categoryId;
+    this.price = price;
+    this.discount = discount;
+    this.rating = rating;
+    this.ratingCount = ratingCount;
+    this.isFeatured = isFeatured;
+    this.isRecent = isRecent;
+    this.color = color;
+    this.size = size;
+    this.description = description;
+  }
+
+  render() {
+    const ratingStars = this.getRatingStars();
+    const priceAfterDiscount = this.getPriceAfterDiscount();
+
+    return `
+      <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+        <div class="product-item bg-light mb-4">
+          <div class="product-img position-relative overflow-hidden">
+            <img class="img-fluid w-100" src="${this.image}" alt="${this.name}" />
+            <div class="product-action">
+              <a class="btn btn-outline-dark btn-square" href="#" onclick="addSingleProductToCart({id:${this.id},name:'${this.name}',price:${this.price},image:'${this.image}'})">
+                <i class="fa fa-shopping-cart"></i>
+              </a>
+              <a class="btn btn-outline-dark btn-square" href="#">
+                <i class="far fa-heart"></i>
+              </a>
+              <a class="btn btn-outline-dark btn-square" href="#">
+                <i class="fa fa-sync-alt"></i>
+              </a>
+              <a class="btn btn-outline-dark btn-square" href="#">
+                <i class="fa fa-search"></i>
+              </a>
+            </div>
+          </div>
+          <div class="text-center py-4">
+            <a class="h6 text-decoration-none text-truncate" href="">${this.name}</a>
+            <div class="d-flex align-items-center justify-content-center mt-2">
+              <h5>${priceAfterDiscount}</h5>
+              <h6 class="text-muted ml-2"><del>${this.price}</del></h6>
+            </div>
+            <div class="d-flex align-items-center justify-content-center mb-1">
+              ${ratingStars}
+              <small>(${this.ratingCount})</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  getRatingStars() {
+    const fullStars = Math.floor(this.rating);
+    const hasHalfStar = this.rating % 1 !== 0;
+
+    let ratingHtml = "";
+    for (let i = 0; i < fullStars; i++) {
+      ratingHtml += '<small class="fa fa-star text-primary mr-1"></small>';
+    }
+
+    if (hasHalfStar) {
+      ratingHtml += '<small class="fa fa-star-half-alt text-primary mr-1"></small>';
+    }
+
+    const remainingStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+    for (let i = 0; i < remainingStars; i++) {
+      ratingHtml += '<small class="far fa-star text-primary mr-1"></small>';
+    }
+
+    return ratingHtml;
+  }
+
+  getPriceAfterDiscount() {
+    const priceAfterDiscount = this.price * (1 - this.discount);
+    return priceAfterDiscount.toFixed(2);
+  }
+}
+
+class FeatureProductRenderer {
+  constructor(apiUrl, targetElementId) {
+    this.apiUrl = apiUrl;
+    this.targetElementId = targetElementId;
+  }
+
+  async fetchFeatureProducts() {
+    try {
+      const response = await fetch(this.apiUrl);
+      const data = await response.json();
+      return data.data;
+    } catch (error) {
+      console.error("Error fetching feature products:", error);
+      return [];
+    }
+  }
+
+  renderFeatureProducts(products) {
+    const targetElement = document.getElementById(this.targetElementId);
+    if (targetElement) {
+      targetElement.innerHTML = ""; // Clear any existing content
+
+      products.forEach((product) => {
+        const { _id, name, image, category_id, price, discount, rating, rating_count, is_featured, is_recent, color, size, description } = product;
+        const productObj = new Product(_id, name, image, category_id, price, discount, rating, rating_count, is_featured, is_recent, color, size, description);
+
+        if (productObj.isFeatured) {
+          const productHtml = productObj.render();
+          targetElement.insertAdjacentHTML("beforeend", productHtml);
+        }
+      });
+    }
+  }
+
+  async init() {
+    const featureProducts = await this.fetchFeatureProducts();
+    this.renderFeatureProducts(featureProducts);
+  }
+}
+
+class RecentProductRenderer extends FeatureProductRenderer {
+  renderFeatureProducts(products) {
+    const targetElement = document.getElementById(this.targetElementId);
+    if (targetElement) {
+      targetElement.innerHTML = ""; // Clear any existing content
+
+      products.forEach((product) => {
+        const { _id, name, image, category_id, price, discount, rating, rating_count, is_featured, is_recent, color, size, description } = product;
+        const productObj = new Product(_id, name, image, category_id, price, discount, rating, rating_count, is_featured, is_recent, color, size, description);
+
+        if (productObj.isRecent) {
+          const productHtml = productObj.render();
+          targetElement.insertAdjacentHTML("beforeend", productHtml);
+        }
+      });
+    }
+  }
+}
+
+// Usage
+const featureProductRenderer = new FeatureProductRenderer("http://localhost:5000/api/products/getFeatured", "FeatureProducts");
+featureProductRenderer.init();
+
+const recentProductRenderer = new RecentProductRenderer("http://localhost:5000/api/products/getFeatured", "RecentProducts");
+recentProductRenderer.init();
+
+
 
 // Usage
 const categoryMenuRenderer = new CategoryRenderer("http://localhost:5000/api/categories/", "categories-menu");
