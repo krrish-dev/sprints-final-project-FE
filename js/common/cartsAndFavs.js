@@ -6,7 +6,7 @@ class Cart{
         this.cartKey = "cart";
        this.getCart();
     }
-    addToCart(product){
+    addToCartFromProductObj(product){
         this.cartItems.push(this.#getCartItemFromProduct(product));
         this.#afterChanges();
     }
