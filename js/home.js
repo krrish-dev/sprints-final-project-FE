@@ -1,4 +1,5 @@
-//krrish ==> index || home page
+//krrish ==> index || home page 
+//Update: The categories have been sorted by product count in descending order.
 class Category {
   constructor(id, name, image, productCount) {
     this.id = id;
