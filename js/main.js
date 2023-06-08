@@ -102,3 +102,10 @@
     
 })(jQuery);
 
+async function getCategories(){
+    let res = await service.postRequest(api.categories, {
+        email:"yfouad42@yahoo.com",
+        password:"123456"
+    });
+    console.log(res);
+}

@@ -65,6 +65,7 @@ class Services {
     const data = await response.json()
     return data;
     }
+
     /**
      * 
      * @param {string} api value from the class Apis represent the dirctory which will be added to the base url 
@@ -89,3 +90,18 @@ class Services {
     }
 }
 let service = new Services();
+let api = new Apis();
+
+/**
+ * cart
+{}
+You11:08 PM
+{ 1 : { name: "uudfd", }}
+map.forEach((key, value) =>{ });
+You11:09 PM
+value.productName
+value.price;
+value.amount;
+You11:11 PM
+value.productId
+ */

@@ -21,6 +21,7 @@ class LocalDataManager{
      * @param {object|Aarry|Map|Set} obj simple object without functions
      * @example {name:"John", age:40}
      */
+   
     saveObject(key, obj){
         this.#validateKey(key);
         this.#localStoarge.setItem(`${this.#getKey(key)}`, JSON.stringify(obj));
