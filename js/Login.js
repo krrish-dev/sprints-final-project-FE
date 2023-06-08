@@ -23,12 +23,12 @@ class userLogin{
    
         _userLogin.password=document.getElementById("password").value
         let myApi ="users/login"
-       let x = service.postRequest(myApi,_userLogin)
-       dm.saveObject(JSON.stringify(x))
-       
-       service.postRequest(myApi,_userLogin).then(value=>
+       let x = service.postRequest(myApi,_userLogin).then(value=>
         console.log(value)
         )
+       dm.saveObject(JSON.stringify(x))
+       
+    //    service.postRequest(myApi,_userLogin)
        
     }
    
