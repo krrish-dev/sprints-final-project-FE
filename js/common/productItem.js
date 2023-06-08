@@ -102,8 +102,6 @@ class ProductItem{
             small = document.createElement("small");
             if(currentRate >= 1){
                 small.setAttribute("class", star);
-                
-              
             }
             else if(currentRate < 1 && currentRate > 0){
                 small.setAttribute("class", halfStar);
