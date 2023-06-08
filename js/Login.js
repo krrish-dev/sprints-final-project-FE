@@ -17,18 +17,20 @@ class userLogin{
         this.token=token
     }
 
-    loginBtn(){
+   async loginBtn(){
     
         _userLogin.email=document.getElementById("email").value
    
         _userLogin.password=document.getElementById("password").value
         let myApi ="users/login"
-       let x = service.postRequest(myApi,_userLogin).then(value=>
-        console.log(value)
-        )
-       dm.saveObject(JSON.stringify(x))
+        let y;
+       let x = await service.postRequest(myApi,_userLogin).catch((err)=>
+       window.alert("error")
+       );
+        console.log(x)
+       dm.saveObject("User",x)
        
-    //    service.postRequest(myApi,_userLogin)
+    
        
     }
    
