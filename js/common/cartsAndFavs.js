@@ -77,9 +77,7 @@ class Cart{
                 cartMap.set(item.productId, item);
             }
         }
-        cartMap.forEach((value, key)=>{
-            console.log(`${value.productName} - ${value.amount}`);
-        });
+        return cartMap;
     }
 }
 let cart = new Cart()
