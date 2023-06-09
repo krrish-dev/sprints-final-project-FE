@@ -11,6 +11,12 @@ class Cart{
         this.#afterChanges();
     }
 
+    addToCartByValues(id, amount, price, productName){
+        let cartObj = {id: id, amount: amount, price:price, productName:productName}
+        this.cartItems.push(cartObj);
+        this.#afterChanges();
+    }
+
     getCart(){
         this.cartItems = dm.getObject(this.cartKey)?? [];
         this.cartItemsCount = this.cartItems.length;
@@ -79,5 +85,52 @@ class Cart{
 let cart = new Cart()
 
 class Favourites{
+   favesKey;
+   #favsList;
+   constructor(){
+    this.favesKey = "favourites";
+    this.#favsList = dm.getObject(this.favesKey)?? []; 
+    this.#refreshFavsIcon();
+   } 
 
+   addToFavsToggel(productId){
+        let isFound = false;
+        for(let i = 0; i<this.#favsList.length; i++){
+            if(this.#favsList[i] == productId){
+                this.#favsList.splice(i, 1);
+                isFound = true;
+                break;
+            }
+        }
+        if(!isFound) this.#favsList.push(productId);
+        dm.saveObject(this.favesKey, this.#favsList);
+        this.#refreshFavsIcon();
+        return isFound;
+   }
+   addToFavsToggel1(productId, fave){
+    let isFound = false;
+    for(let i = 0; i<this.#favsList.length; i++){
+        if(this.#favsList[i] == productId){
+            this.#favsList.splice(i, 1);
+            isFound = true;
+            break;
+        }
+    }
+    if(!isFound) this.#favsList.push(productId);
+    dm.saveObject(this.favesKey, this.#favsList);
+    this.#refreshFavsIcon();
+    fave.innerHTML = isFound?`<i class="far fa-heart"></i>`:`<i class="fa fa-heart"></i>`;
+    return isFound;
 }
+
+   isFavourite(productId){
+       return this.#favsList.includes(productId);
+   }
+   #refreshFavsIcon(){
+    let favsIcon = document.getElementsByClassName('favsIcon');
+    for (var i = 0; i < favsIcon.length; i++) {
+        favsIcon[i].innerHTML = this.#favsList.length;
+      }
+   }
+}
+let favourites = new Favourites();
