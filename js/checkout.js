@@ -1,9 +1,83 @@
 // const { get, METHODS } = require("http");
+var subTotal= 0 ;
+var totalPrice=0;
+var tax=0;
 
-// class UserInfo {
-//     constructor (fdName)
-// }
+arr =[
+   {name:"Product Test A", count:"2", price:250},
+   {name:"Product Test B", count:"5", price:250},
+   {name:"Product Test C", count:"10", price:100},
+   {name:"Product Test D", count:"15", price:100},
+   {name:"Product Test E", count:"20", price:50}
+]
+checkoutProducts =()=> {
+   const checkoutProduct = document.querySelector('div.checkoutProducts');
+   arr.forEach((name, i ) =>{
+   checkoutProduct.innerHTML+=
+   `<div class="d-flex justify-content-between">
+   <p>${arr[i].name} x (<span>${arr[i].count} </span> )</p>
+   <p>$${arr[i].price} </p>
+   </div>`
+});
+console.log(checkoutProduct)
+}
+checkoutProducts()
 
+subTotal = () =>{ 
+   const checkoutSubTotal = document.querySelector('div.checkoutSubTotal');
+   subTotal=0;
+   for (let i = 0; i < arr.length; i++) {
+       subTotal +=arr[i].price;
+   }
+   checkoutSubTotal.innerHTML+=
+      `<div >
+      <h6>$${subTotal}</h6>
+  </div>`  
+};
+subTotal();
+
+taxCalc =() =>{
+   const paypalchoic = document.querySelector('#paypal');
+   const directchoic = document.querySelector('#directcheck');
+   const bankchoic = document.querySelector('#banktransfer');
+if (paypalchoic.checked === true) {
+   
+    tax = 0.1 * subTotal;
+    totalPrice = tax + subTotal;
+
+   console.log ("paypal", tax, totalPrice) 
+
+}
+else if (directchoic.checked === true){
+   
+    tax = 0.15 * subTotal;
+    totalPrice = tax+ subTotal;
+   console.log ("Direct transfer", tax, totalPrice)
+}
+else if (bankchoic.checked === true){
+   
+    tax= 0.05 * subTotal;
+    totalPrice = tax + subTotal;
+   console.log ("Direct Bank", tax, totalPrice)
+}
+displayTax()
+displayTotalPrice()
+}
+displayTax =() => {
+   const checkoutTaxLable = document.querySelector('div.taxLable');
+   checkoutTaxLable.innerHTML =`
+   <h6 class="font-weight-medium ">Tax</h6>
+   <h6 class="font-weight-medium">$${tax}</h6>
+   `
+};
+displayTotalPrice =() => {
+   const checkoutTaxLable = document.querySelector('div.totalPriceLable');
+   checkoutTaxLable.innerHTML =`
+   
+   <h5>Total</h5>
+   <h5 class="font-weight-medium">$${totalPrice}</h5>
+   `
+};
 
 firstNameValidation = ()=>{
        let pattern = /^[A-Za-z]+$/;
@@ -104,21 +178,6 @@ zipInputvalidation = ()=>{
             }
       
     }
-taxCalc =() =>{
-   const paypalchoic = document.querySelector('#paypal');
-   const directchoic = document.querySelector('#directcheck');
-   const bankchoic = document.querySelector('#banktransfer');
-if (paypalchoic.checked === true) {
-   console.log ("paypal")
-}
-else if (directchoic.checked === true){
-   console.log ("Direct transfer")
-}
-else if (bankchoic.checked === true){
-   console.log ("Direct Bank")
-}
-
-}
 
 
 // getSelectedCountry = ()=>{
