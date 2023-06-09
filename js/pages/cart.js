@@ -128,7 +128,10 @@ class CartManager{
       itemRow.innerHTML = content;
     }
     proceedToCheckOut(){
-     
+     if(!dm.getObject("User")){
+      window.location.replace("./login.html");
+      return;
+     }
       if(this.#cartItems.size == 0) {
          alert("The Cart is Empty!");
          return;
