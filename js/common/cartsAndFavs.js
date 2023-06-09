@@ -11,8 +11,8 @@ class Cart{
         this.#afterChanges();
     }
 
-    addToCartByValues(id, amount, price, productName){
-        let cartObj = {id: id, amount: amount, price:price, productName:productName}
+    addToCartByValues(id, amount, price, productName, img){
+        let cartObj = {productId: id, amount: amount, price:price, productName:productName, img:img}
         this.cartItems.push(cartObj);
         this.#afterChanges();
     }
@@ -28,7 +28,8 @@ class Cart{
             productId: product.id,
             amount: 1,
             price: product.afterDiscount,
-            productName: product.name
+            productName: product.name,
+            img: product.image
         };
     }
     #updateCartIconCounter(){
@@ -43,28 +44,49 @@ class Cart{
         this.#updateCartIconCounter();
     }
     removeItemFromCart(productId){
-        debugger;
         this.cartItems = this.cartItems.filter((cartItem)=>{
             console.log(cartItem.productName);
             return cartItem.productId != productId;
         });
         this.#afterChanges();
     }
-    removeItemAmountFromCart(productId, count){
-        this.cartItems = this.cartItems.filter((cartItem)=>{
-            if(count > 0 ){
-                if(cartItem.productId == productId) count--;
-                return cartItem.productId != productId
+    decrementItemAmount(productId){
+        for(let i = 0; i<this.cartItems.length; i++){
+            if(this.cartItems[i].productId == productId){
+                this.cartItems.splice(i, 1);
+                break;
             }
-            return true;
-        });
+        }
         this.#afterChanges();
     }
+    setProductAmount(productid, amount){
+        let newList = [];
+        let item;
+        for(let cartItem of this.cartItems){
+            if(cartItem.productId != productid){
+                newList.push(cartItem);
+                continue;
+            }
+            if(amount == 0) continue;
+            item = item ?? cartItem;
+            newList.push(cartItem);
+            amount--;
+        }
+        for(let i=0; i<amount && item; i++)newList.push(item);
+        this.cartItems = newList;
+        this.#afterChanges();
+    }
+
     incrementItemInCart(cartItem){
+        cartItem.amount = 1;
         this.cartItems.push(cartItem);
         this.#afterChanges();
     }
-    getUniqeCartItems(){
+    /**
+     * @param {bool} getAsArray optional
+     */
+    getUniqeCartItems(getAsArray){
+        getAsArray = getAsArray ?? false;
         this.getCart();
         let cartMap = new Map();
         let tempItem;
@@ -74,9 +96,10 @@ class Cart{
                 tempItem.amount += 1;
             }
             else{
-                cartMap.set(item.productId, item);
+                cartMap.set(item.productId, {...item});
             }
         }
+        if(getAsArray) return Array.from(cartMap.values);
         return cartMap;
     }
 }

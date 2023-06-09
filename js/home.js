@@ -178,7 +178,7 @@ class Product {
    
     let cartIcon = document.createElement('a');
     cartIcon.setAttribute('class', 'btn btn-outline-dark btn-square');
-    cartIcon.setAttribute('onclick', `cart.addToCartByValues('${this.id}',${1},${this.afterDiscount},'${this.name}')`);
+    cartIcon.setAttribute('onclick', `cart.addToCartByValues('${this.id}',${1},${this.afterDiscount},'${this.name}', '${this.image}')`);
     cartIcon.innerHTML = `<i class="fa fa-shopping-cart"></i>`;
     return cartIcon.outerHTML;
   }
