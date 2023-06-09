@@ -5,13 +5,7 @@ var tax=0;
 
 
 
-// arr =[
-//    {name:"Product Test A", count:"2", price:250},
-//    {name:"Product Test B", count:"5", price:250},
-//    {name:"Product Test C", count:"10", price:100},
-//    {name:"Product Test D", count:"15", price:100},
-//    {name:"Product Test E", count:"20", price:50}
-// ]
+
 newCheckoutProducts =()=> {
    const checkoutProduct = document.querySelector('div.checkoutProducts');
    let cartItems= cart.getUniqeCartItems();
@@ -23,34 +17,23 @@ newCheckoutProducts =()=> {
    </div>`
    console.log(value.productName)
 });
-
-
 }
 newCheckoutProducts();
-// newCheckoutProducts =()=> {
-//    const checkoutProduct = document.querySelector('div.checkoutProducts');
-//    arr.forEach((name, i ) =>{
-//    checkoutProduct.innerHTML+=
-//    `<div class="d-flex justify-content-between">
-//    <p>${arr[i].name} x (<span>${arr[i].count} </span> )</p>
-//    <p>$${arr[i].price} </p>
-//    </div>`
-// });
 
-// console.log(checkoutProduct)
-// }
-// checkoutProducts()
 
 subTotal = () =>{ 
    const checkoutSubTotal = document.querySelector('div.checkoutSubTotal');
    subTotal=0;
-   for (let i = 0; i < arr.length; i++) {
-       subTotal +=arr[i].price;
-   }
-   checkoutSubTotal.innerHTML+=
+   let cartItems= cart.getUniqeCartItems();
+for (const [key, value] of cartItems.entries()) {
+  subTotal +=(value.price*value.amount)
+  
+ }
+ checkoutSubTotal.innerHTML+=
       `<div >
       <h6>$${subTotal}</h6>
-  </div>`  
+  </div>` 
+
 };
 subTotal();
 
