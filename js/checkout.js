@@ -3,25 +3,43 @@ var subTotal= 0 ;
 var totalPrice=0;
 var tax=0;
 
-arr =[
-   {name:"Product Test A", count:"2", price:250},
-   {name:"Product Test B", count:"5", price:250},
-   {name:"Product Test C", count:"10", price:100},
-   {name:"Product Test D", count:"15", price:100},
-   {name:"Product Test E", count:"20", price:50}
-]
-checkoutProducts =()=> {
+
+
+// arr =[
+//    {name:"Product Test A", count:"2", price:250},
+//    {name:"Product Test B", count:"5", price:250},
+//    {name:"Product Test C", count:"10", price:100},
+//    {name:"Product Test D", count:"15", price:100},
+//    {name:"Product Test E", count:"20", price:50}
+// ]
+newCheckoutProducts =()=> {
    const checkoutProduct = document.querySelector('div.checkoutProducts');
-   arr.forEach((name, i ) =>{
+   let cartItems= cart.getUniqeCartItems();
+   cartItems.forEach((value, key ) =>{
    checkoutProduct.innerHTML+=
    `<div class="d-flex justify-content-between">
-   <p>${arr[i].name} x (<span>${arr[i].count} </span> )</p>
-   <p>$${arr[i].price} </p>
+   <p>${value.productName} x (<span>${value.amount} </span> )</p>
+   <p>$${value.amount*value.price} </p>
    </div>`
+   console.log(value.productName)
 });
-console.log(checkoutProduct)
+
+
 }
-checkoutProducts()
+newCheckoutProducts();
+// newCheckoutProducts =()=> {
+//    const checkoutProduct = document.querySelector('div.checkoutProducts');
+//    arr.forEach((name, i ) =>{
+//    checkoutProduct.innerHTML+=
+//    `<div class="d-flex justify-content-between">
+//    <p>${arr[i].name} x (<span>${arr[i].count} </span> )</p>
+//    <p>$${arr[i].price} </p>
+//    </div>`
+// });
+
+// console.log(checkoutProduct)
+// }
+// checkoutProducts()
 
 subTotal = () =>{ 
    const checkoutSubTotal = document.querySelector('div.checkoutSubTotal');
