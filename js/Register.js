@@ -18,8 +18,6 @@ class user{
         document.getElementById("passwordConfimation").value=""
     }
     async addUser(){
-
-        localStorage.clear()
         document.getElementById("userSuccess").style.display="none"
         document.getElementById("error").style.display="none"
         document.getElementById("passwordValidation").style.display="none"
@@ -71,3 +69,5 @@ if(x){
     location.href = 'index.html';
 }
 })();
+
+
