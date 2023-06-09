@@ -283,16 +283,5 @@ class ShopPageManager{
         this.renderItems(this.#getPage());
     }
 }
-
+//**DONT DARE TOUCH THIS OBJECT */
 let shopPageManager = new ShopPageManager();
-shopPageManager.onLoad();
-/**
- * white
- * black
- * green
- * red
- * blue
- * 
- * xs
- * x
- */
