@@ -137,6 +137,7 @@ class CartManager{
          return;
       }
       window.location.href = "./checkout.html";
+      console.log("fdfd");
     }
 }
 let cartManager = new CartManager();
