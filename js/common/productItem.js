@@ -13,6 +13,8 @@ class ProductItem{
     color;
     size;
     description;
+    #favIcon;
+    
     constructor(product){
         if(!product) return;
         this.id = product._id ?? "";
@@ -63,10 +65,11 @@ class ProductItem{
     }
     #buildActionsSection(){
         let cart = this.#createTag("a", "btn btn-outline-dark btn-square"); cart.innerHTML = `<i class="fa fa-shopping-cart"></i>`
-        let fav = this.#createTag("a", "btn btn-outline-dark btn-square"); fav.innerHTML = `<i class="far fa-heart"></i>`
+        let fav = this.#createTag("a", "btn btn-outline-dark btn-square"); 
+        fav.innerHTML = favourites.isFavourite(this.id)?`<i class="fa fa-heart"></i>`:`<i class="far fa-heart"></i>`
         let sync = this.#createTag("a", "btn btn-outline-dark btn-square"); sync.innerHTML = `<i class="fa fa-sync-alt"></i>`;
         let search = this.#createTag("a", "btn btn-outline-dark btn-square"); search.innerHTML = `<i class="fa fa-search"></i>`
-
+        this.#favIcon = fav;
         cart.addEventListener('click', this.addToCart.bind(this));
         fav.addEventListener('click', this.addToFavs.bind(this));
         let productAction = this.#createTag("div", "product-action");
@@ -122,6 +125,7 @@ class ProductItem{
        cart.addToCartFromProductObj(this);
     }
     addToFavs(){
-
+        let wasFav = favourites.addToFavsToggel(this.id);
+        this.#favIcon.innerHTML = wasFav?`<i class="far fa-heart"></i>`:`<i class="fa fa-heart"></i>`;
     }
 }
