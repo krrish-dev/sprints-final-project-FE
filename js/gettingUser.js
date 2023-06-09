@@ -5,10 +5,10 @@
 if(!x){
    document.getElementById("loginList").innerHTML=`
    <li class="nav-item">
-   <a class="nav-link " href="/login.html">Log in</a>
+   <a class="nav-link " href="./login.html">Log in</a>
  </li>
  <li class="nav-item">
-   <a class="nav-link "  href="/register.html">Register</a>
+   <a class="nav-link "  href="./register.html">Register</a>
  </li>
    `
 }else{

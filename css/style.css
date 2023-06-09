@@ -200,7 +200,9 @@ pre {
 figure {
   margin: 0 0 1rem;
 }
-
+.myNav{
+  background-color: #3D464D;
+}
 img {
   vertical-align: middle;
   border-style: none;
