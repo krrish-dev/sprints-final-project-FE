@@ -18,24 +18,36 @@ class userLogin{
     }
 
    async loginBtn(){
-    
+       
         _userLogin.email=document.getElementById("email").value
    
         _userLogin.password=document.getElementById("password").value
         let myApi ="users/login"
-        let y;
-       let x = await service.postRequest(myApi,_userLogin).catch((err)=>
-       window.alert("error")
-       );
-        console.log(x)
-       dm.saveObject("User",x)
+
+       let x = await service.postRequest(myApi,_userLogin).then((data)=>{
        
-    
+        console.log(data)
+        
+        dm.saveObject("User",data)
+        location.href = 'index.html'
+       }).catch((err)=>{
+console.log(err)
+           document.getElementById("errorLogin").style.display="block"
+       }
+       );
+     
+       
        
     }
    
     
 }
 let _userLogin=new userLogin()
-
-
+let x= localStorage.getItem("User");
+(function(){
+    
+if(x){
+    window.alert("you are already logged in");
+    location.href = 'index.html';
+}
+})();

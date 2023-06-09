@@ -161,6 +161,16 @@ a:hover {
   color: #e6b400;
   text-decoration: underline;
 }
+.CustomColor {
+  color: #FFD333;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.CustomColor:hover {
+  color: #e6b400;
+  text-decoration: underline;
+}
 
 a:not([href]):not([class]) {
   color: inherit;

@@ -23,7 +23,7 @@ class LocalDataManager{
      */
    
     saveObject(key, obj){
-    
+        
         this.#validateKey(key);
         this.#localStoarge.setItem(`${this.#getKey(key)}`, JSON.stringify(obj));
     }

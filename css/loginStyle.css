@@ -1,6 +1,9 @@
 .myNav{
   background-color: #3D464D;
 }
+#errorLogin{
+  display: none;
+}
 .loginContainer{
     height: 100%;
     padding: 50px 0px;

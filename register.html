@@ -31,6 +31,7 @@
     <title>Document</title>
 </head>
 <body>
+ 
     <ul class="nav myNav container-fluid">
         <li class="nav-item">
           <a class="nav-link " href="/login.html">Log in</a>
@@ -195,18 +196,27 @@
                                   <label for="passwordConfimation" class="CustomLabel">Confiming Password</label>
                                   
                           </div>
-                          <p id="passwordValidation">password doesn't match</p>
-                             
-                       
+                          <div class="alert customAlert alert-danger" id="passwordValidation" role="alert">
+                            password doesn't match                          </div>
+                          
+                
                         </div>
+                        <div class="alert customAlert alert-danger" id="error" role="alert">
+                          User Already exits
+                        </div>
+                        <div class="alert customAlert alert-success" id="userSuccess" role="alert">
+                          User Created Successfuly
+                        </div>
+                        <button type="button" onclick="userObject.addUser()" class="btn btn-primary">Submit</button>
+
                       </form>
-                      <button  onclick="userObject.addUser()" class="btn btn-primary">Submit</button>
-
+                     
                     </div>
-
             </div>
         </div>
+       
     </div>
+  
     <script src="./js/Register.js" ></script>
 
     <script src="js/data/services.js"></script>

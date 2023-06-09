@@ -1,10 +1,15 @@
-
-
-
+#userSuccess{
+  display: none;
+}
+#error{
+  display: none;
+}
 .myNav{
     background-color: #3D464D;
 }
-
+#userAlready{
+  display: none;
+}
 .RegisterContainer{
 height: 100%;
 padding: 50px 0px;

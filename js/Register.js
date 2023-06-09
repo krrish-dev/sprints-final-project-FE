@@ -10,12 +10,19 @@ class user{
         this.email=email
         this.password=password
     }
-    addUser(){
-        localStorage.clear();
+    clear(){
+    document.getElementById("email").value=""
+        document.getElementById("firstName").value=""
+        document.getElementById("lastName").value=""
+        document.getElementById("password").value=""
+        document.getElementById("passwordConfimation").value=""
+    }
+    async addUser(){
 
-
-
-        
+        localStorage.clear()
+        document.getElementById("userSuccess").style.display="none"
+        document.getElementById("error").style.display="none"
+        document.getElementById("passwordValidation").style.display="none"
         userObject.email=document.getElementById("email").value
         userObject.first_name=document.getElementById("firstName").value
         userObject.last_name=document.getElementById("lastName").value
@@ -33,8 +40,21 @@ class user{
             document.getElementById("lastnameValidation").style.display="block"
             return false
         }
+
+        
         let myApi ="users/register"
-        service.postRequest(myApi,userObject)
+        await service.postRequest(myApi,userObject).then((success)=>{
+        document.getElementById("userSuccess").style.display="block"
+            this.clear()
+
+       }).catch((err)=>
+       {
+
+           console.log(err)
+           
+           document.getElementById("error").style.display="block"
+       }
+        )
     }
 
     
@@ -42,3 +62,12 @@ class user{
 
 let userObject=new user()
 let token
+
+let x= localStorage.getItem("User");
+(function(){
+    
+if(x){
+    window.alert("you are already logged in");
+    location.href = 'index.html';
+}
+})();
