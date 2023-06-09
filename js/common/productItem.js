@@ -13,6 +13,8 @@ class ProductItem{
     color;
     size;
     description;
+    #favIcon;
+    
     constructor(product){
         if(!product) return;
         this.id = product._id ?? "";
@@ -63,10 +65,11 @@ class ProductItem{
     }
     #buildActionsSection(){
         let cart = this.#createTag("a", "btn btn-outline-dark btn-square"); cart.innerHTML = `<i class="fa fa-shopping-cart"></i>`
-        let fav = this.#createTag("a", "btn btn-outline-dark btn-square"); fav.innerHTML = `<i class="far fa-heart"></i>`
+        let fav = this.#createTag("a", "btn btn-outline-dark btn-square"); 
+        fav.innerHTML = favourites.isFavourite(this.id)?`<i class="fa fa-heart"></i>`:`<i class="far fa-heart"></i>`
         let sync = this.#createTag("a", "btn btn-outline-dark btn-square"); sync.innerHTML = `<i class="fa fa-sync-alt"></i>`;
         let search = this.#createTag("a", "btn btn-outline-dark btn-square"); search.innerHTML = `<i class="fa fa-search"></i>`
-
+        this.#favIcon = fav;
         cart.addEventListener('click', this.addToCart.bind(this));
         fav.addEventListener('click', this.addToFavs.bind(this));
         let productAction = this.#createTag("div", "product-action");
@@ -119,181 +122,10 @@ class ProductItem{
     }
     addToCart(){
         console.log("in product item");
-       cart.addToCart(this);
+       cart.addToCartFromProductObj(this);
     }
     addToFavs(){
-
+        let wasFav = favourites.addToFavsToggel(this.id);
+        this.#favIcon.innerHTML = wasFav?`<i class="far fa-heart"></i>`:`<i class="fa fa-heart"></i>`;
     }
-
-    /*
-    <div class="col-12">
-                        
-                    </div>
-    */
 }
-
-let response = [
-    {
-        "_id": "6480c58fdf79d4aa66029dcf",
-        "name": "New Balance Sportswear New Arrivals",
-        "image": "img/product-1.jpg",
-        "category_id": "6480c58edf79d4aa66029db6",
-        "price": 100,
-        "discount": 0.1,
-        "rating": 4.5,
-        "rating_count": 120,
-        "is_featured": true,
-        "is_recent": false,
-        "color": "white",
-        "size": "xl",
-        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nostrum ipsam quisquam molestiae expedita laudantium necessitatibus! Necessitatibus accusantium aspernatur aliquam.",
-        "__v": 0
-    },
-    {
-        "_id": "6480c590df79d4aa66029dd1",
-        "name": "Mintra Shoes",
-        "image": "img/product-2.jpg",
-        "category_id": "6480c58edf79d4aa66029db8",
-        "price": 250,
-        "discount": 0.15,
-        "rating": 4,
-        "rating_count": 99,
-        "is_featured": true,
-        "is_recent": false,
-        "color": "blue",
-        "size": "s",
-        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nostrum ipsam quisquam molestiae expedita laudantium necessitatibus! Necessitatibus accusantium aspernatur aliquam.",
-        "__v": 0
-    },
-    {
-        "_id": "6480c590df79d4aa66029dd3",
-        "name": "Appliances",
-        "image": "img/product-3.jpg",
-        "category_id": "6480c58edf79d4aa66029dba",
-        "price": 48.5,
-        "discount": 0.1,
-        "rating": 3.5,
-        "rating_count": 45,
-        "is_featured": true,
-        "is_recent": false,
-        "color": "red",
-        "size": "xs",
-        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nostrum ipsam quisquam molestiae expedita laudantium necessitatibus! Necessitatibus accusantium aspernatur aliquam.",
-        "__v": 0
-    },
-    {
-        "_id": "6480c590df79d4aa66029dd5",
-        "name": "Kitchen small Appliances",
-        "image": "img/product-4.jpg",
-        "category_id": "6480c58edf79d4aa66029dbc",
-        "price": 280,
-        "discount": 0.15,
-        "rating": 4.5,
-        "rating_count": 70,
-        "is_featured": true,
-        "is_recent": false,
-        "color": "green",
-        "size": "l",
-        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nostrum ipsam quisquam molestiae expedita laudantium necessitatibus! Necessitatibus accusantium aspernatur aliquam.",
-        "__v": 0
-    },
-    {
-        "_id": "6480c590df79d4aa66029dd7",
-        "name": "LG TV's",
-        "image": "img/product-5.jpg",
-        "category_id": "6480c58edf79d4aa66029dbe",
-        "price": 999,
-        "discount": 0.05,
-        "rating": 4.5,
-        "rating_count": 34,
-        "is_featured": true,
-        "is_recent": true,
-        "color": "red",
-        "size": "xs",
-        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nostrum ipsam quisquam molestiae expedita laudantium necessitatibus! Necessitatibus accusantium aspernatur aliquam.",
-        "__v": 0
-    },
-    {
-        "_id": "6480c590df79d4aa66029dd9",
-        "name": "Nikon Cameras & Accessores",
-        "image": "img/product-6.jpg",
-        "category_id": "6480c58edf79d4aa66029dc0",
-        "price": 3200,
-        "discount": 0.1,
-        "rating": 4.5,
-        "rating_count": 15,
-        "is_featured": true,
-        "is_recent": true,
-        "color": "white",
-        "size": "m",
-        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nostrum ipsam quisquam molestiae expedita laudantium necessitatibus! Necessitatibus accusantium aspernatur aliquam.",
-        "__v": 0
-    },
-    {
-        "_id": "6480c590df79d4aa66029ddb",
-        "name": "Power Bank",
-        "image": "img/product-7.jpg",
-        "category_id": "6480c58fdf79d4aa66029dc2",
-        "price": 300,
-        "discount": 0.05,
-        "rating": 4.5,
-        "rating_count": 190,
-        "is_featured": true,
-        "is_recent": true,
-        "color": "green",
-        "size": "s",
-        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nostrum ipsam quisquam molestiae expedita laudantium necessitatibus! Necessitatibus accusantium aspernatur aliquam.",
-        "__v": 0
-    },
-    {
-        "_id": "6480c590df79d4aa66029ddd",
-        "name": "Kitchen Collection",
-        "image": "img/product-8.jpg",
-        "category_id": "6480c58fdf79d4aa66029dc4",
-        "price": 999,
-        "discount": 0.1,
-        "rating": 4,
-        "rating_count": 55,
-        "is_featured": true,
-        "is_recent": true,
-        "color": "red",
-        "size": "xl",
-        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nostrum ipsam quisquam molestiae expedita laudantium necessitatibus! Necessitatibus accusantium aspernatur aliquam.",
-        "__v": 0
-    },
-    {
-        "_id": "6480f6f11f5fd147b3e08d3a",
-        "name": "Product 2 Cat2",
-        "image": "assets/img/prod-2.jpg",
-        "category_id": "6346aed67c308ccff12e065c",
-        "price": 100,
-        "discount": 0.1,
-        "rating": 3,
-        "rating_count": 140,
-        "is_featured": true,
-        "is_recent": false,
-        "description": "Product 1 Cat2 Product 1 Cat2 Product 1 Cat2 Product 1 Cat2 Product 1 Cat2 Product 1 Cat2 Product 1 Cat2 Product 1 Cat2 Product 1 Cat2 Product 1 Cat2 Product 1 Cat2 Product 1 Cat2 Product 1 Cat2 ",
-        "__v": 0
-    }
-]
-function renderItems(){
-    let productsSection = document.getElementById("productsSection");
-    let product;
-    response.forEach((item)=>{
-        product = new ProductItem(item);
-        productsSection.appendChild(product.renderProduct());
-    });
-    let nav = document.createElement("div");
-    let content = `<nav>
-    <ul class="pagination justify-content-center">
-      <li class="page-item disabled"><a class="page-link" href="#">Previous</span></a></li>
-      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">Next</a></li>
-    </ul>
-  </nav>`
-    nav.innerHTML = content;
-    productsSection.appendChild(nav);
-}
-renderItems();

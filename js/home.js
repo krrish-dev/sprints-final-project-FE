@@ -87,6 +87,7 @@ class CategoryRenderer {
 }
 // feature product + recent product 
 class Product {
+  favIcon;
   constructor(id, name, image, categoryId, price, discount, rating, ratingCount, isFeatured, isRecent, color, size, description) {
     this.id = id;
     this.name = name;
@@ -101,6 +102,7 @@ class Product {
     this.color = color;
     this.size = size;
     this.description = description;
+    this.afterDiscount = this.price - (this.price * this.discount);
   }
 
   render() {
@@ -113,12 +115,8 @@ class Product {
           <div class="product-img position-relative overflow-hidden">
             <img class="img-fluid w-100" src="${this.image}" alt="${this.name}" />
             <div class="product-action">
-              <a class="btn btn-outline-dark btn-square" href="#" onclick="addSingleProductToCart({id:${this.id},name:'${this.name}',price:${this.price},image:'${this.image}'})">
-                <i class="fa fa-shopping-cart"></i>
-              </a>
-              <a class="btn btn-outline-dark btn-square" href="#">
-                <i class="far fa-heart"></i>
-              </a>
+              ${this.buildCartIcon()}
+              ${this.buildFaveIcon()}
               <a class="btn btn-outline-dark btn-square" href="#">
                 <i class="fa fa-sync-alt"></i>
               </a>
@@ -168,6 +166,23 @@ class Product {
     const priceAfterDiscount = this.price * (1 - this.discount);
     return priceAfterDiscount.toFixed(2);
   }
+
+  buildFaveIcon(){
+    let favIcon = document.createElement('a');
+    favIcon.setAttribute('class', 'btn btn-outline-dark btn-square');
+    favIcon.setAttribute('onclick', `favourites.addToFavsToggel1('${this.id}', this)`);
+    favIcon.innerHTML = favourites.isFavourite(this.id)?`<i class="fa fa-heart"></i>`:`<i class="far fa-heart"></i>`;
+    return favIcon.outerHTML;
+  }
+  buildCartIcon(){
+   
+    let cartIcon = document.createElement('a');
+    cartIcon.setAttribute('class', 'btn btn-outline-dark btn-square');
+    cartIcon.setAttribute('onclick', `cart.addToCartByValues('${this.id}',${1},${this.afterDiscount},'${this.name}')`);
+    cartIcon.innerHTML = `<i class="fa fa-shopping-cart"></i>`;
+    return cartIcon.outerHTML;
+  }
+
 }
 
 class FeatureProductRenderer {
