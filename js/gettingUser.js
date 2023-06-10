@@ -1,7 +1,6 @@
 (function () {
  let x= localStorage.getItem("User")
  x=JSON.parse(x)
-    console.log(x)
 if(!x){
   document.querySelector(".loginList").innerHTML=`
    <li class="nav-item">
