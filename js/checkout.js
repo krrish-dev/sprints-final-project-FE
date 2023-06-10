@@ -141,6 +141,16 @@ checkAllData=()=>{
        this.userMobile.match(/^[0][1]\d{9}$/)) return true;
        return false; 
    }
+   setUserInfo(currentUser){
+      document.getElementById("fName").value = currentUser.first_name;
+      document.getElementById("lName").value = currentUser.last_name;
+      document.getElementById("userMail").value = currentUser.email;
+      this.fName = currentUser.first_name;
+      this.lName = currentUser.last_name;
+      this.userMail=currentUser.email;
+      this.id = currentUser._id;
+      this.token = currentUser.token;
+   }
 getUserData =()=>{
 
    return{
@@ -171,11 +181,15 @@ requestData;
    this.totalPrice=0;
    this.tax=0;
    this.user = new User()
-   this.user.id=dm.getObject("User")._id
-   this.user.token=dm.getObject("User").token
    this.cartOrder=[];
 }
 onloadCheckout=()=>{
+   let currentUser = dm.getObject("User");
+   if(!currentUser){
+      window.location.replace("./login.html");
+      return;
+   }
+   this.user.setUserInfo(currentUser);
    this.newCheckoutProducts();
    this.calcSubTotal();
 }
@@ -183,6 +197,11 @@ newCheckoutProducts =()=> {
    
    const checkoutProduct = document.querySelector('div.checkoutProducts');
    let cartItems= cart.getUniqeCartItems();
+   if(cartItems.size == 0){
+      history.back();
+      alert("Your cart is empty!");
+      return;
+   }
    cartItems.forEach((value, key ) =>{
      
    checkoutProduct.innerHTML+=
@@ -273,8 +292,17 @@ displayTotalPrice =() => {
       shipping_info:this.user.getUserData(),
    } 
    service.setToken(this.user.token);
-   let response = await service.postRequest(api.orders,requestBody);
-debugger
-}
+   let response;
+   try{
+      response = await service.postRequest(api.orders,requestBody);
+      if(response.status != "success") throw("Error occured while placing order.");
+      alert("Your Order Placed Successfully");
+      window.location.replace("./index.html");
+      dm.remove(cart.cartKey);
+
+   }catch(err){
+      alert(err);
+   }
+}  
 }
 let checkoutManger = new CheckoutManger();
