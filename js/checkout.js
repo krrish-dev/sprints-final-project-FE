@@ -306,3 +306,17 @@ displayTotalPrice =() => {
 }  
 }
 let checkoutManger = new CheckoutManger();
+
+let x= localStorage.getItem("User");
+
+(function(){
+    
+    if(!x){
+        if (confirm("You will need to login first to proceed.")) {
+            location.href = 'login.html';
+           
+          } else{
+           location.href = 'index.html';
+          }
+    }
+    })();

@@ -61,10 +61,10 @@ class user{
         let passwordVali =/^.{6,20}$/.test(password)
         console.log(passwordVali)
         if(passwordVali==true){
-            document.getElementById("EmailInvaild").style.display="none"
+            document.getElementById("PasswordInvaild").style.display="none"
             return true
            }else{
-            document.getElementById("EmailInvaild").style.display="block"
+            document.getElementById("PasswordInvaild").style.display="block"
             return false
            }
     }
@@ -81,7 +81,7 @@ class user{
         }
     }
     async addUser(){
-        debugger
+        
         if(!this.EmailValidation()||!this.LastNameValidation()||!this.FirstNameValidation()||!this.ConfirmPasswordValidation()){
             
             return false
@@ -96,7 +96,7 @@ class user{
         userObject.password=document.getElementById("password").value
         let passwordConfimation =document.getElementById("passwordConfimation").value
         if(this.password!=passwordConfimation){
-            debugger
+            
             document.getElementById("passwordValidation").style.display="block"
             return false
         }else if (userObject.first_name.length<3){
