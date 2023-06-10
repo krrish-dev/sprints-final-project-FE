@@ -207,7 +207,7 @@ newCheckoutProducts =()=> {
    checkoutProduct.innerHTML+=
    `<div class="d-flex justify-content-between">
    <p>${value.productName} x (<span>${value.amount} </span> )</p>
-   <p>$${value.amount*value.price} </p>
+   <p>$${(value.amount*value.price).toFixed(2)} </p>
    </div>`
    console.log(value.productName)
 });
@@ -230,7 +230,7 @@ for (const [key, value] of cartItems.entries()) {
  }
  checkoutSubTotal.innerHTML+=
       `<div >
-      <h6>$${this.subTotal}</h6>
+      <h6>$${this.subTotal.toFixed(2)}</h6>
   </div>` 
 
 };
@@ -266,7 +266,7 @@ displayTax =() => {
    const checkoutTaxLable = document.querySelector('div.taxLable');
    checkoutTaxLable.innerHTML =`
    <h6 class="font-weight-medium ">Tax</h6>
-   <h6 class="font-weight-medium">$${this.tax}</h6>
+   <h6 class="font-weight-medium">$${this.tax.toFixed(2)}</h6>
    `
 };
 displayTotalPrice =() => {
@@ -274,7 +274,7 @@ displayTotalPrice =() => {
    checkoutTaxLable.innerHTML =`
    
    <h5>Total</h5>
-   <h5 class="font-weight-medium">$${this.totalPrice}</h5>
+   <h5 class="font-weight-medium">$${this.totalPrice.toFixed(2)}</h5>
    `
 };
  checkout= async()=>{

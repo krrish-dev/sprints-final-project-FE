@@ -57,7 +57,7 @@ class CartManager{
             </div>
           </div>
         </td>
-        <td class="align-middle">$${product.price * product.amount}</td>
+        <td class="align-middle">$${(product.price * product.amount).toFixed(2)}</td>
         <td class="align-middle">
           <button class="btn btn-sm btn-danger" type="button" onclick="cartManager.deleteItem('${product.productId}')">
             <i class="fa fa-times"></i>
@@ -119,7 +119,7 @@ class CartManager{
       for(let [key, value] of this.#cartItems.entries()){
           subTotal = subTotal + (value.price * value.amount);
       }
-      subTotalRef.innerText = `$${subTotal}`;
+      subTotalRef.innerText = `$${subTotal.toFixed(2)}`;
     }
     #refreshItemRow(product){
       
