@@ -251,7 +251,7 @@ else if (directchoic.checked === true){
    
    this.tax = 0.15 * this.subTotal;
    this.totalPrice = this.tax+ this.subTotal;
-   console.log ("Direct transfer", tax,this.totalPrice)
+   console.log ("Direct transfer",  this.stax,this.totalPrice)
 }
 else if (bankchoic.checked === true){
    
