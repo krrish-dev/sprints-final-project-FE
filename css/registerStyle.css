@@ -99,6 +99,10 @@ color: red;
   -moz-transition:0.2s ease all; 
   -webkit-transition:0.2s ease all;
 }
+#FirstNameInvaild,#PasswordInvaild,#LastNameInvaild,#EmailInvaild{
+  display: none;
+}
+
 .bar:before {
   left:50%;
 }

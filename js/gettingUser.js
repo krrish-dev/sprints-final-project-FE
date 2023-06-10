@@ -3,7 +3,7 @@
  x=JSON.parse(x)
     console.log(x)
 if(!x){
-   document.getElementById("loginList").innerHTML=`
+  document.querySelector(".loginList").innerHTML=`
    <li class="nav-item">
    <a class="nav-link " href="./login.html">Log in</a>
  </li>
@@ -12,7 +12,7 @@ if(!x){
  </li>
    `
 }else{
-    document.getElementById("loginList").innerHTML= `
+  document.querySelector(".loginList").innerHTML=`
    <li class="nav-item">
    <a class="nav-link " href="#">Hello : ${x.first_name}</a>
  </li>

@@ -163,41 +163,52 @@
                     <form>
                         <div class="form-group">
                             <div class="group">      
-                                <input  type="text"class="bg-offWhite CustomInput"  max="20" id="firstName" required>
+                                <input  type="text" onkeyup="userObject.FirstNameValidation()"  class="bg-offWhite CustomInput" max="20"  id="firstName" required>
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
-                                <label for="firstName" class="CustomLabel">First name</label>
+                                <label for="firstName" class="CustomLabel">First name</label>                                
                               </div>
-                              <p id="firstnameValidation">First name is required and it's min length is 3 and max 20</p>
+                              
+                              <div class="alert customAlert alert-danger mb-3" id="FirstNameInvaild" role="alert">
+                                invalid first name
+                              </div>
                               <div class="group">      
-                                <input  type="text"class="bg-offWhite CustomInput"  max="20" id="lastName" required>
+                                <input  type="text"class="bg-offWhite CustomInput"  onkeyup="userObject.LastNameValidation()"  max="20" id="lastName" required>
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label for="lastName" class="CustomLabel">Last name</label>
                               </div>
-                              <p id="lastnameValidation">Last name is required and it's min length is 3 and max 20</p>
-
+                              <div class="alert customAlert alert-danger  my-3" id="LastNameInvaild" role="alert">
+                                invalid last name
+                              </div>
                               <div class="group">      
-                              <input type="email" class="bg-offWhite CustomInput" id="email" required>
+                              <input type="email" onkeyup="userObject.EmailValidation()" class="bg-offWhite CustomInput" id="email" required>
                               <span class="highlight"></span>
                                 <span class="bar"></span>
                               <label for="email" class="CustomLabel">Email address</label>
                               </div>
+                              <div class="alert customAlert alert-danger  my-3" id="EmailInvaild" role="alert">
+                                invalid email
+                              </div>
                               <div class="group"> 
-                                <input type="password" class="bg-offWhite CustomInput" id="password" required>
+                                <input type="password" onkeyup="userObject.PasswordValidation()" maxlength="20" key class="bg-offWhite CustomInput" id="password" required>
                                 <span class="highlight"></span>
                                         <span class="bar"></span>
                                 <label for="password" class="CustomLabel">Password</label>
                           </div>
+                          <div class="alert customAlert alert-danger  my-3" id="PasswordInvaild" role="alert">
+                            invalid password
+                          </div>
                               <div class="group"> 
-                                <input type="password" class="bg-offWhite CustomInput" id="passwordConfimation" required>
+                                <input type="password" onkeyup="userObject.PasswordValidation()" class="bg-offWhite CustomInput" maxlength="20" id="passwordConfimation" required>
                                   <span class="highlight"></span>
                                   <span class="bar"></span>
                                   <label for="passwordConfimation" class="CustomLabel">Confiming Password</label>
                                   
                           </div>
                           <div class="alert customAlert alert-danger" id="passwordValidation" role="alert">
-                            password doesn't match                          </div>
+                            password doesn't match                          
+                          </div>
                           
                 
                         </div>
