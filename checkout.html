@@ -26,7 +26,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body onload="checkoutManger.onloadCheckout()">
     <!-- Topbar Start -->
     <div class="container-fluid">
 
@@ -151,27 +151,27 @@
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label>First Name<span id="fNameCheck"></span></label>
-                            <input class="form-control" id="fName" type="text" onkeyup="firstNameValidation();"
+                            <input class="form-control" id="fName" type="text" onkeyup="checkoutManger.user.firstNameValidation();"
                                 placeholder="John">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Last Name<span id="lNameCheck"></span></label>
-                            <input class="form-control" id="lName" type="text" onkeyup="lastNameValidation();"
+                            <input class="form-control" id="lName" type="text" onkeyup="checkoutManger.user.lastNameValidation();"
                                 placeholder="Doe">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>E-mail<span id="mailCheck"></span></label>
-                            <input class="form-control" id="userMail" type="text" onkeyup="mailInputvalidation();"
+                            <input class="form-control" id="userMail" type="text" onkeyup="checkoutManger.user.mailInputvalidation();"
                                 placeholder="example@email.com">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Mobile No<span id="mobileCheck" required></span></label>
-                            <input class="form-control" id="userMobile" onkeyup="MobileInputvalidation();" type="tel"
+                            <input class="form-control" id="userMobile" onkeyup="checkoutManger.user.MobileInputvalidation();" type="tel"
                                 placeholder="+123 456 789">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Address Line 1<span id="userAddress1check"></span></label>
-                            <input class="form-control" id="userAddress1" onkeyup="address1Validation();" type="text"
+                            <input class="form-control" id="userAddress1" onkeyup="checkoutManger.user.address1Validation();" type="text"
                                 placeholder="123 Street">
                         </div>
                         <div class="col-md-6 form-group">
@@ -196,7 +196,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>ZIP Code<span id="zipCheck"></span></label>
-                            <input class="form-control" onkeyup="zipInputvalidation()" id="userZip" type="number"
+                            <input class="form-control" onkeyup="user.zipInputvalidation()" id="userZip" type="number"
                                 placeholder="123">
                         </div>
                     </div>
@@ -290,14 +290,14 @@
                     <div class="bg-light p-30">
                         <div class="form-group">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" onclick="taxCalc()" name="payment"
+                                <input type="radio" class="custom-control-input" onclick="checkoutManger.taxCalc()" name="payment"
                                     id="paypal">
                                 <label class="custom-control-label" id="paypal-choice" for="paypal">Paypal</label>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" onclick="taxCalc()" name="payment"
+                                <input type="radio" class="custom-control-input" onclick="checkoutManger.taxCalc()" name="payment"
                                     id="directcheck">
                                 <label class="custom-control-label" id="directcheck-choice" for="directcheck">Direct
                                     Check</label>
@@ -305,13 +305,13 @@
                         </div>
                         <div class="form-group mb-4">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" onclick="taxCalc()" name="payment"
+                                <input type="radio" class="custom-control-input" onclick="checkoutManger.taxCalc()" name="payment"
                                     id="banktransfer">
                                 <label class="custom-control-label" id="banktransfer-choice" for="banktransfer">Bank
                                     Transfer</label>
                             </div>
                         </div>
-                        <button onclick="inputsValidation();"
+                        <button onclick="checkoutManger.checkout()"
                             class="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>
                     </div>
                 </div>
@@ -413,6 +413,7 @@
     <script src="./js/data/localDataManager.js"></script>
     <script src="./js/common/cartsAndFavs.js"></script>
     <script defer src="js/checkout.js"></script>
+    <script src="js/data/services.js"></script>
 
 </body>
 

@@ -1,15 +1,190 @@
 // const { get, METHODS } = require("http");
-var subTotal= 0 ;
-var totalPrice=0;
-var tax=0;
+
+class User {
+fName;
+lName;
+userMail;
+userMobile;
+userAddress1;
+userAddess2;
+userCountry;
+uerCity;
+userState;
+userZip;
+isValid;
+id;
+token;
+   constructor(){
+      
+      this.fName="";
+      this.lName="";
+      this.userMail="";
+      this.userMobile="";
+      this.userAddress1="";
+      this.userAddess2="";
+      this.userCountry="";
+      this.uerCity="";
+      this.userState="";
+      this.userZip="";
+    
+   
+   }
+
+firstNameValidation = ()=>{
+      let pattern = /^[A-Za-z]+$/;
+      let fName = document.getElementById("fName").value;
+      let fNameEror = document.getElementById("fNameCheck")
+
+      if(fName.match(pattern)) {
+           this.fName=fName;
+           fNameEror.innerHTML=" Valid ";
+           fNameEror.setAttribute('style', 'color:green !important'); 
+
+              }
+           else {
+           
+              fNameEror.innerHTML=" * Please enter a valid name ";
+              fNameEror.setAttribute('style', 'color:red !important');   
+           }
+     
+   }
+lastNameValidation = ()=>{
+     let pattern = /^[A-Za-z]+$/;
+     let lName = document.getElementById("lName").value;
+     let lNameEror = document.getElementById("lNameCheck")
+
+     if(lName.match(pattern)) {
+          this.lName=lName;
+          
+          lNameEror.innerHTML=" Valid ";
+          lNameEror.setAttribute('style', 'color:green !important');   
+             }
+          else {
+             lNameEror.innerHTML=" * Please enter a valid name ";
+             lNameEror.setAttribute('style', 'color:red !important');   
+          }
+    
+   }
+mailInputvalidation = ()=>{
+
+  let userMail = document.getElementById("userMail").value;
+  let pattern =  /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+ let  mailEror = document.getElementById("mailCheck")
+
+  if(userMail.match(pattern)) {
+   this.userMail=userMail;
+     mailEror.innerHTML="   Valid ";
+     mailEror.setAttribute('style', 'color:green !important');   
+        }
+     else {
+        
+        mailEror.innerHTML=" * Please enter a vaild Email ";
+        mailEror.setAttribute('style', 'color:red !important');   
+     }
+
+   }
+MobileInputvalidation = ()=>{
+
+     let userMobile = document.getElementById("userMobile").value;
+     let pattern =  /^[0][1]\d{9}$/;
+    let mobileError = document.getElementById("mobileCheck")
+
+     if(userMobile.match(pattern)) {
+      this.userMobile=userMobile;
+      mobileError.innerHTML="  Valid ";
+        mobileError.setAttribute('style', 'color:green !important');   
+           }
+        else {
+           mobileError.innerHTML=" * Please enter a vaild phone number ";
+           mobileError.setAttribute('style', 'color:red !important');   
+     
+        }
+  
+   }
+address1Validation = ()=>{
+        let pattern = /^[a-zA-Z0-9\s,.'-]{3,}$/;
+        let userAddress1 = document.getElementById("userAddress1").value;
+       let userAddress1Eror = document.getElementById("userAddress1check");
+  
+        if(userAddress1.match(pattern)){
+         this.userAddress1=userAddress1;
+             userAddress1Eror.innerHTML=" Valid ";
+             userAddress1Eror.setAttribute('style', 'color:green !important');   
+                }
+        else {
+                userAddress1Eror.innerHTML=" * Please enter your Adress ";
+                userAddress1Eror.setAttribute('style', 'color:red !important');   
+             }
+       
+   }
+zipInputvalidation = ()=>{
+
+        let userZip = document.getElementById("userZip").value;
+        // let pattern =  /^[0]?[789]\d{9}$/;
+        let zipError = document.getElementById("zipCheck")
+        
+  
+        if(userZip.length == 5) {
+         this.userZip=userZip;
+           zipError.innerHTML="  Valid ";
+           zipError.setAttribute('style', 'color:green !important');   
+              }
+           else {
+              zipError.innerHTML=" * Please enter a Zip code ";
+              zipError.setAttribute('style', 'color:red !important');   
+           }
+     
+   }
+checkAllData=()=>{
+      if (this.fName.match(/^[A-Za-z]+$/)&&this.lName.match(/^[A-Za-z]+$/)&&
+      this.userMail.match(/^[^ ]+@[^ ]+\.[a-z]{2,3}$/)&&
+       this.userMobile.match(/^[0][1]\d{9}$/)) return true;
+       return false; 
+   }
+getUserData =()=>{
+
+   return{
+      first_name: this.fName,
+      last_name: this.lName,
+      email: this.userMail,
+      mobile_number: this.userMobile,
+      address1: this.userAddress1,
+      address2: this.userAddess2,
+      country: this.userCountry,
+      city: this.uerCity,
+      state: this.userState,
+      zip_code: this.userZip
+  }
+   }
+}
 
 
-
-
+class CheckoutManger{
+requestData;
+  user;
+  subTotal;
+   totalPrice;
+   tax;
+   cartOrder;
+   constructor(){
+   this.subTotal= 0 ;
+   this.totalPrice=0;
+   this.tax=0;
+   this.user = new User()
+   this.user.id=dm.getObject("User")._id
+   this.user.token=dm.getObject("User").token
+   this.cartOrder=[];
+}
+onloadCheckout=()=>{
+   this.newCheckoutProducts();
+   this.calcSubTotal();
+}
 newCheckoutProducts =()=> {
+   
    const checkoutProduct = document.querySelector('div.checkoutProducts');
    let cartItems= cart.getUniqeCartItems();
    cartItems.forEach((value, key ) =>{
+     
    checkoutProduct.innerHTML+=
    `<div class="d-flex justify-content-between">
    <p>${value.productName} x (<span>${value.amount} </span> )</p>
@@ -18,24 +193,28 @@ newCheckoutProducts =()=> {
    console.log(value.productName)
 });
 }
-newCheckoutProducts();
 
-
-subTotal = () =>{ 
+calcSubTotal=()=>{ 
+   this.cartOrder=[];
+   let item={};
    const checkoutSubTotal = document.querySelector('div.checkoutSubTotal');
-   subTotal=0;
+   this.subTotal=0;
    let cartItems= cart.getUniqeCartItems();
 for (const [key, value] of cartItems.entries()) {
-  subTotal +=(value.price*value.amount)
+   item.product_id = value.productId;
+   item.price = value.price;
+   item.qty = value.amount;
+   this.cartOrder.push(item);
+   item={}; 
+  this.subTotal +=(value.price*value.amount)
   
  }
  checkoutSubTotal.innerHTML+=
       `<div >
-      <h6>$${subTotal}</h6>
+      <h6>$${this.subTotal}</h6>
   </div>` 
 
 };
-subTotal();
 
 taxCalc =() =>{
    const paypalchoic = document.querySelector('#paypal');
@@ -43,32 +222,32 @@ taxCalc =() =>{
    const bankchoic = document.querySelector('#banktransfer');
 if (paypalchoic.checked === true) {
    
-    tax = 0.1 * subTotal;
-    totalPrice = tax + subTotal;
+    this.tax = 0.1 * this.subTotal;
+    this.totalPrice = this.tax + this.subTotal;
 
-   console.log ("paypal", tax, totalPrice) 
+   console.log ("paypal", this.tax, this.totalPrice) 
 
 }
 else if (directchoic.checked === true){
    
-    tax = 0.15 * subTotal;
-    totalPrice = tax+ subTotal;
-   console.log ("Direct transfer", tax, totalPrice)
+   this.tax = 0.15 * this.subTotal;
+   this.totalPrice = this.tax+ this.subTotal;
+   console.log ("Direct transfer", tax,this.totalPrice)
 }
 else if (bankchoic.checked === true){
    
-    tax= 0.05 * subTotal;
-    totalPrice = tax + subTotal;
-   console.log ("Direct Bank", tax, totalPrice)
+   this.tax= 0.05 * this.subTotal;
+   this.totalPrice = this.tax + this.subTotal;
+   console.log ("Direct Bank", this.tax, this.totalPrice)
 }
-displayTax()
-displayTotalPrice()
+this.displayTax()
+this.displayTotalPrice()
 }
 displayTax =() => {
    const checkoutTaxLable = document.querySelector('div.taxLable');
    checkoutTaxLable.innerHTML =`
    <h6 class="font-weight-medium ">Tax</h6>
-   <h6 class="font-weight-medium">$${tax}</h6>
+   <h6 class="font-weight-medium">$${this.tax}</h6>
    `
 };
 displayTotalPrice =() => {
@@ -76,135 +255,26 @@ displayTotalPrice =() => {
    checkoutTaxLable.innerHTML =`
    
    <h5>Total</h5>
-   <h5 class="font-weight-medium">$${totalPrice}</h5>
+   <h5 class="font-weight-medium">$${this.totalPrice}</h5>
    `
 };
-
-firstNameValidation = ()=>{
-       let pattern = /^[A-Za-z]+$/;
-       let fName = document.getElementById("fName").value;
-       fNameEror = document.getElementById("fNameCheck")
-
-       if(fName.match(pattern)) {
-
-            fNameEror.innerHTML=" Valid ";
-            fNameEror.setAttribute('style', 'color:green !important');   
-               }
-            else {
-               fNameEror.innerHTML=" * Please enter a valid name ";
-               fNameEror.setAttribute('style', 'color:red !important');   
-            }
-      
-    }
-lastNameValidation = ()=>{
-      let pattern = /^[A-Za-z]+$/;
-      let lName = document.getElementById("lName").value;
-      lNameEror = document.getElementById("lNameCheck")
-
-      if(lName.match(pattern)) {
-
-           lNameEror.innerHTML=" Valid ";
-           lNameEror.setAttribute('style', 'color:green !important');   
-              }
-           else {
-              lNameEror.innerHTML=" * Please enter a valid name ";
-              lNameEror.setAttribute('style', 'color:red !important');   
-           }
-     
-    }
-mailInputvalidation = ()=>{
-
-   let userMail = document.getElementById("userMail").value;
-   let pattern =  /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-   mailEror = document.getElementById("mailCheck")
-
-   if(userMail.match(pattern)) {
-      
-      mailEror.innerHTML="   Valid ";
-      mailEror.setAttribute('style', 'color:green !important');   
-         }
-      else {
-         
-         mailEror.innerHTML=" * Please enter a vaild Email ";
-         mailEror.setAttribute('style', 'color:red !important');   
-      }
-
-    }
-MobileInputvalidation = ()=>{
-
-      let userMobile = document.getElementById("userMobile").value;
-      // let pattern =  /^[0]?[789]\d{9}$/;
-      mobileError = document.getElementById("mobileCheck")
-
-      if(!isNaN(userMobile) && userMobile.length== 10 && userMobile.includes("+")) {
-         mobileError.innerHTML="  Valid ";
-         mobileError.setAttribute('style', 'color:green !important');   
-            }
-         else {
-            mobileError.innerHTML=" * Please enter a vaild phone number ";
-            mobileError.setAttribute('style', 'color:red !important');   
-      
-         }
-   
-    }
-address1Validation = ()=>{
-         let pattern = /^[a-zA-Z0-9\s,.'-]{3,}$/;
-         let userAddress1 = document.getElementById("userAddress1").value;
-         userAddress1Eror = document.getElementById("userAddress1check");
-   
-         if(userAddress1.match(pattern)){
-              userAddress1Eror.innerHTML=" Valid ";
-              userAddress1Eror.setAttribute('style', 'color:green !important');   
-                 }
-         else {
-                 userAddress1Eror.innerHTML=" * Please enter your Adress ";
-                 userAddress1Eror.setAttribute('style', 'color:red !important');   
-              }
-        
-    }
-zipInputvalidation = ()=>{
-
-         let userZip = document.getElementById("userZip").value;
-         // let pattern =  /^[0]?[789]\d{9}$/;
-         zipError = document.getElementById("zipCheck")
-         
-   
-         if(userZip.length == 5) {
-            zipError.innerHTML="  Valid ";
-            zipError.setAttribute('style', 'color:green !important');   
-               }
-            else {
-               zipError.innerHTML=" * Please enter a Zip code ";
-               zipError.setAttribute('style', 'color:red !important');   
-            }
-      
-    }
-
-
-// getSelectedCountry = ()=>{
-//     document.getElementById("userMail").selectedOptions.value
-    
-// }
-
-// addTax =()=>{
-
-//     if (document.getElementById("paypal-choice").value == true) {
-//         document.getElementById("result").innerHTML="";
-//     }
-//     elseif (document.getElementById("directcheck-choice").value == true)
-//         {
-//     }
-//     elseif (document.getElementById("banktransfer-choice").value == true)
-//     {
-// }
-
-// }
-
-// cart
-// {}
-// { 1 : { name: "uudfd", }}
-// map.forEach((key, value) =>{ });
-// value.productName
-// value.price;
-// value.amount;
-// value.productId
+ checkout= async()=>{
+   if (!this.user.checkAllData()) {
+      alert("please enter a valid data" )
+      return;
+   }
+   let requestBody= {
+      sub_total_price : this.subTotal,
+       shipping : 10,
+      total_price: this.totalPrice,
+      user_id:this.user.id,
+      order_date: new Date().toDateString(),
+      order_details:this.cartOrder,
+      shipping_info:this.user.getUserData(),
+   } 
+   service.setToken(this.user.token);
+   let response = await service.postRequest(api.orders,requestBody);
+debugger
+}
+}
+let checkoutManger = new CheckoutManger();
