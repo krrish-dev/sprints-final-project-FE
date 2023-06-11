@@ -18,7 +18,6 @@ if(!x){
  <li class="nav-item">
    <a class="nav-link" onclick="logout()" href="#">Log out</a>
  </li>
- 
    `
 }
   })();

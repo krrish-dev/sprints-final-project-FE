@@ -31,8 +31,11 @@
        
     </ul>
     <!-- Topbar Start -->
+    <ul class="loginList nav myNav container-fluid">
+       
+        </ul>
     <div class="container-fluid">
-
+      
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
                 <a href="" class="text-decoration-none">
@@ -191,16 +194,15 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>City</label>
-                            <input class="form-control" type="text" placeholder="New York">
+                            <input class="form-control" type="text" onkeyup="" id="userCity" input="userCity" placeholder="New York">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>State</label>
-                            <input class="form-control" type="text" placeholder="New York">
+                            <input class="form-control" onkeyup="checkoutManger.user.setUserInfo()" type="text" id="userState" placeholder="New York">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>ZIP Code<span id="zipCheck"></span></label>
-                            <input class="form-control" onkeyup="user.zipInputvalidation()" id="userZip" type="number"
-                                placeholder="123">
+                            <input class="form-control" onkeyup="checkoutManger.user.zipInputvalidation()" id="userZip" type="number" placeholder="123">
                         </div>
                     </div>
                 </div>

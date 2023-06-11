@@ -31,7 +31,7 @@ class userLogin{
         dm.saveObject("User",data)
         location.href = 'index.html'
        }).catch((err)=>{
-console.log(err)
+           console.log(err)
            document.getElementById("errorLogin").style.display="block"
        }
        );
