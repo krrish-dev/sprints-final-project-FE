@@ -182,11 +182,11 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Address Line 2 ( optional )</label>
-                            <input class="form-control" id="userAddress2" type="text" placeholder="123 Street">
+                            <input class="form-control" id="userAddress2" onkeyup="checkoutManger.user.getFulldata()" type="text" placeholder="123 Street">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Country</label>
-                            <select class="custom-select" id="userCountry" onchange="">
+                            <select class="custom-select" onkeyup="checkoutManger.user.getFulldata()"  id="userCountry" onchange="">
                                 <option selected>Egypt</option>
                                 <option>USA</option>
                                 <option>Algeria</option>
@@ -194,11 +194,11 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>City</label>
-                            <input class="form-control" type="text" onkeyup="" id="userCity" input="userCity" placeholder="New York">
+                            <input class="form-control" type="text"  onkeyup="checkoutManger.user.getFulldata()" id="userCity" input="userCity" placeholder="New York">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>State</label>
-                            <input class="form-control" onkeyup="checkoutManger.user.setUserInfo()" type="text" id="userState" placeholder="New York">
+                            <input class="form-control" onkeyup="checkoutManger.user.getFulldata()" type="text" id="userState" placeholder="New York">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>ZIP Code<span id="zipCheck"></span></label>
@@ -319,6 +319,7 @@
                         <button onclick="checkoutManger.checkout()"
                             class="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>
                     </div>
+                    
                 </div>
             </div>
         </div>

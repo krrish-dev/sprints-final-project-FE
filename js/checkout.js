@@ -29,6 +29,14 @@ class User {
 
 
    }
+   getFulldata=()=>{
+      this.userAddess2 = document.getElementById("userAddress2").value??" "; 
+      this.userCity= document.getElementById("userCity").value;
+      this.userZip= document.getElementById("userZip").value ;
+      this.userState= document.getElementById("userState").value ;
+      this.userCountry= document.getElementById("userCountry").value;
+     
+   }
 
    firstNameValidation = () => {
       let pattern = /^[A-Za-z]+$/;
@@ -146,19 +154,11 @@ class User {
       document.getElementById("fName").value = currentUser.first_name;
       document.getElementById("lName").value = currentUser.last_name;
       document.getElementById("userMail").value = currentUser.email;
-      document.getElementById("userAddress2").value = currentUser.address2;
-      document.getElementById("userCity").value = currentUser.city;
-      document.getElementById("userState").value = currentUser.state;
-      document.getElementById("userZip").value = currentUser.zip_code;
-      this.fName = currentUser.first_name;
       this.lName = currentUser.last_name;
       this.userMail = currentUser.email;
-      this.userAddess2 = currentUser.address2;
-      this.userCity = currentUser.city;
-      this.userState = currentUser.state
-      this.userZip = currentUser.zip_code;
       this.id = currentUser._id;
       this.token = currentUser.token;
+      
    }
    getUserData = () => {
 
@@ -215,7 +215,7 @@ class CheckoutManger {
 
          checkoutProduct.innerHTML +=
             `<div class="d-flex justify-content-between">
-   <p>${value.productName} x (<span>${value.amount} </span> )</p>
+   <p>${value.productName} x ( <span>${value.amount}</span> )</p>
    <p>$${(value.amount * value.price).toFixed(2)} </p>
    </div>`
          console.log(value.productName)
@@ -301,7 +301,7 @@ class CheckoutManger {
          order_details: this.cartOrder,
          shipping_info: this.user.getUserData(),
       }
-
+      
       service.setToken(this.user.token);
       let response;
       try {
@@ -314,8 +314,10 @@ class CheckoutManger {
       } catch (err) {
          alert(err);
       }
+      
    }
 }
+
 let checkoutManger = new CheckoutManger();
 
 let x = localStorage.getItem("User");
